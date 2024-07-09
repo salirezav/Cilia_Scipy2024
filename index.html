@@ -25,7 +25,7 @@
 
         <div class="row section-title">
             <div class="col-md-12 text-center">
-                <h2>Automated Analysis of Cilia</h2>
+                <h2>Manual Labeling of Cilia</h2>
             </div>
         </div>
 
@@ -61,7 +61,7 @@
                                 including blindness and neurodevelopmental defects. Accurate analysis of ciliary motion
                                 is essential for diagnosing these conditions but is traditionally <b>labor-intensive,
                                     subjective, expert-intensive, and prone to error</b> due to the manual labeling of
-                                cilia. Our approach leverages optical flow and unsupervised learning to automate the
+                                cilia. Our approach leverages optical flow and semi-supervised learning to automate the
                                 segmentation and analysis of cilia, providing a more efficient and accurate method for
                                 studying ciliary behavior.</p>
                         </div>
@@ -73,7 +73,6 @@
         <div class="row section-title">
             <div class="col-md-12 text-center">
                 <h2>Methodology</h2>
-
             </div>
         </div>
 
@@ -82,24 +81,149 @@
                 <div class="card">
                     <div class="card-body">
                         <p>Ciliary motion can be considered as dynamic textures for their orderly rhythmic beating.
-                            Taking advantage of this , OF can be used to compute the flow vectors of videos of
+                            Taking advantage of this, OF can be used to compute the flow vectors of videos of
                             cilia.</p>
                         <img src="frame_to_flow_to_ar.png" class="card-img-top img-fluid" alt="Methodology Image">
                         <br />
                         <br />
                         <h5 class="card-title">Optical Flow (OF) and Autoregressive (AR) Modeling</h5>
                         <p class="card-text">Autoregressive parameterization of the OF property of the
-                        video yields a manifold that quantifies the characteristic motion in the cilia.</p>
+                            video yields a manifold that quantifies the characteristic motion in the cilia.</p>
                         <p>We generate a 5-order AR model of the OF component.</p>
                         <img src="AR_matrices.png" class="card-img-bottom img-fluid" alt="AR Matrices Image">
-
-                        </br>
-                        </br>
-                        <h5>Generating masks from the autoregressive</h5>
+                        <br />
+                        <br />
+                        <h5>Generating masks from the autoregressive model</h5>
                         <p>The low dimension of this manifold
                             contains the majority of variations within the data, which can then be used to segment the
                             motile ciliary regions. </p>
-                            <img src="thresholding.png" class="card-img-top img-fluid" alt="Methodology Image">
+                        <img src="thresholding.png" class="card-img-top img-fluid" alt="Methodology Image">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row section-title">
+            <div class="col-md-12 text-center">
+                <h2>Training a Model</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Training the Deep Learning Model</h5>
+                        <p class="card-text">To train our deep learning model, we utilize a Feature Pyramid Network
+                            (FPN) architecture. The training dataset consists of the first 250 frames of the control
+                            videos and the pseudolabels generated from the
+                            autoregressive model. We apply data augmentation including resizing, random cropping, and
+                            rotation to enhance the robustness of the
+                            model.</p>
+
+                        <table class="table table-bordered">
+                            <caption class="text-center">Table 1. Summary of Deep Learning Model Training Parameters
+                            </caption>
+
+                            <thead>
+                                <tr>
+                                    <th>Aspect</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>Architecture</b></td>
+                                    <td>FPN with ResNet-34 encoder</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Input</b></td>
+                                    <td>Grayscale images with a single input channel</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Number of Epochs</b></td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Batch Size</b></td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Training Samples</b></td>
+                                    <td>15,662</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Validation Samples</b></td>
+                                    <td>2,763</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Test Samples</b></td>
+                                    <td>108</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Loss Function</b></td>
+                                    <td>Binary Cross-Entropy Loss</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Optimizer</b></td>
+                                    <td>Adam optimizer with a learning rate of $10^{-3}$</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Evaluation Metric</b></td>
+                                    <td>Dice score during training and validation</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Data Augmentation Techniques</b></td>
+                                    <td>Resizing, random cropping, and rotation</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Implementation</b></td>
+                                    <td>Using a Python library with Neural Networks for Image Segmentation based on
+                                        PyTorch [@Iakubovskii:2019]
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <figure class="figure">
+                            <img src="out_sample.png" class="card-img-bottom img-fluid" alt="CNN Training Image">
+                            <figcaption class="figure-caption text-center">Output sample from the CNN model after
+                                training.</figcaption>
+                        </figure>
+
+                        <table class="table table-bordered">
+                            <caption>Evaluation Metrics</caption>
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Phases</th>
+                                    <th colspan="4" align="center">Metrics</th>
+                                </tr>
+                                <tr>
+                                    <th align="center">IoU over dataset</th>
+                                    <th align="center">Dice Score</th>
+                                    <th align="center">Sensitivity</th>
+                                    <th align="center">Specificity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td align="left">Validation</td>
+                                    <td align="center">0.312</td>
+                                    <td align="center">0.476</td>
+                                    <td align="center">0.999</td>
+                                    <td align="center">0.813</td>
+                                </tr>
+                                <tr>
+                                    <td align="left">Testing</td>
+                                    <td align="center">0.230</td>
+                                    <td align="center">0.374</td>
+                                    <td align="center">0.631</td>
+                                    <td align="center">0.787</td>
+                                </tr>
+                            </tbody>
+                        </table>
+<p>These results show the potential of our approach to reduce the reliance on manually labeled data for cilia segmentation.
+The use of this unsupervised learning framework allows the model to generalize from the motile cilia domain to the more
+variable dyskinetic cilia, although with some limitations in accuracy.</p>
                     </div>
                 </div>
             </div>
