@@ -9,45 +9,62 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
-    <style>
-       
-    </style>
 </head>
 
 <body>
 
     <div class="container">
         <div class="jumbotron text-center">
-            <h1>Training a Supervised Cilia Segmentation Model from Self-Supervision</h1>
+            <div class="jumbotron-content">
+                <h1>Training a Supervised Cilia Segmentation Model from Self-Supervision</h1>
+                <br />
+                <h5>Seyed Alireza Vaezi, Shannon Quinn</h5>
+                <h6><b>University of Georgia</b></h6>
+            </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-12">
                 <div class="card">
-                    <div class="overlay-container">
-                        <img src="1001-2.gif" class="card-img-top img-fluid" alt="GIF 1">
-                        <img src="1001-2_mask.png" class="overlay" alt="Mask 1">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="overlay-container">
-                        <img src="1028-5.gif" class="card-img-top img-fluid" alt="GIF 2">
-                        <img src="1028-5_mask.png" class="overlay" alt="Mask 2">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="overlay-container">
-                        <img src="1029-1.gif" class="card-img-top img-fluid" alt="GIF 3">
-                        <img src="1029-1_mask.png" class="overlay" alt="Mask 3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 gif-container">
+                                <div class="overlay-container">
+                                    <img src="1001-2.gif" class="card-img-top img-fluid" alt="GIF 1">
+                                    <img src="1001-2_mask.png" class="overlay" alt="Mask 1">
+                                </div>
+                            </div>
+                            <div class="col-md-4 gif-container">
+                                <div class="overlay-container">
+                                    <img src="1028-5.gif" class="card-img-top img-fluid" alt="GIF 2">
+                                    <img src="1028-5_mask.png" class="overlay" alt="Mask 2">
+                                </div>
+                            </div>
+                            <div class="col-md-4 gif-container">
+                                <div class="overlay-container">
+                                    <img src="1029-1.gif" class="card-img-top img-fluid" alt="GIF 3">
+                                    <img src="1029-1_mask.png" class="overlay" alt="Mask 3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Manual labeling of cilia.</h5>
+                            <p class="card-text">Cilia are hair-like structures on the surface of cells that play
+                                crucial roles in cellular processes, such as moving fluids and sensory functions.
+                                Dysfunction in ciliary motion, known as ciliopathies, can lead to serious health issues
+                                including blindness and neurodevelopmental defects. Accurate analysis of ciliary motion
+                                is essential for diagnosing these conditions but is traditionally <b>labor-intensive,
+                                    subjective, expert-intensive, and prone to error</b> due to the manual labeling of
+                                cilia. Our approach leverages optical flow and semi-supervised learning to automate the
+                                segmentation and analysis of cilia, providing a more efficient and accurate method for
+                                studying ciliary behavior.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
