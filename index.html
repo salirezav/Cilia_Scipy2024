@@ -22,6 +22,13 @@
                 <h6><b>University of Georgia</b></h6>
             </div>
         </div>
+
+        <div class="row section-title">
+            <div class="col-md-12 text-center">
+                <h2>Automated Analysis of Cilia</h2>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -54,7 +61,7 @@
                                 including blindness and neurodevelopmental defects. Accurate analysis of ciliary motion
                                 is essential for diagnosing these conditions but is traditionally <b>labor-intensive,
                                     subjective, expert-intensive, and prone to error</b> due to the manual labeling of
-                                cilia. Our approach leverages optical flow and semi-supervised learning to automate the
+                                cilia. Our approach leverages optical flow and unsupervised learning to automate the
                                 segmentation and analysis of cilia, providing a more efficient and accurate method for
                                 studying ciliary behavior.</p>
                         </div>
@@ -62,9 +69,43 @@
                 </div>
             </div>
         </div>
+
+        <div class="row section-title">
+            <div class="col-md-12 text-center">
+                <h2>Methodology</h2>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p>Ciliary motion can be considered as dynamic textures for their orderly rhythmic beating.
+                            Taking advantage of this , OF can be used to compute the flow vectors of videos of
+                            cilia.</p>
+                        <img src="frame_to_flow_to_ar.png" class="card-img-top img-fluid" alt="Methodology Image">
+                        <br />
+                        <br />
+                        <h5 class="card-title">Optical Flow (OF) and Autoregressive (AR) Modeling</h5>
+                        <p class="card-text">Autoregressive parameterization of the OF property of the
+                        video yields a manifold that quantifies the characteristic motion in the cilia.</p>
+                        <p>We generate a 5-order AR model of the OF component.</p>
+                        <img src="AR_matrices.png" class="card-img-bottom img-fluid" alt="AR Matrices Image">
+
+                        </br>
+                        </br>
+                        <h5>Generating masks from the autoregressive</h5>
+                        <p>The low dimension of this manifold
+                            contains the majority of variations within the data, which can then be used to segment the
+                            motile ciliary regions. </p>
+                            <img src="thresholding.png" class="card-img-top img-fluid" alt="Methodology Image">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
